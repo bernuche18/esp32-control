@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Contrôle ESP32</title>
+<style>
+  button { padding:10px 20px; margin:5px; font-size:16px; }
+</style>
+</head>
+<body>
+  <h1>Contrôle ESP32 (via serveur externe)</h1>
+
+  <p>
+    LED intégrée :
+    <button onclick="send('/on1')">ON</button>
+    <button onclick="send('/off1')">OFF</button>
+  </p>
+
+  <p>
+    Sortie 2 :
+    <button onclick="send('/on2')">ON</button>
+    <button onclick="send('/off2')">OFF</button>
+  </p>
+
+  <p>
+    Sortie 3 :
+    <button onclick="send('/on3')">ON</button>
+    <button onclick="send('/off3')">OFF</button>
+  </p>
+
+<script>
+const ESP32_IP = "http://192.168.1.50"; // <<< remplace par l'IP de ton ESP32
+
+function send(path) {
+  fetch(ESP32_IP + path)
+    .then(r => r.text())
+    .then(txt => alert(txt))
+    .catch(err => alert("Erreur : " + err));
+}
+</script>
+</body>
+</html>
